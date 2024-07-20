@@ -1,66 +1,28 @@
-## Foundry
+# Crowdfunding
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Contract should allow users to contribute funds to a project and allow the project owner to withdraw funds if a certain funding goal is met.
 
-Foundry consists of:
+## HOW TO 
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+to compile the project run:
+`forge build`
 
-## Documentation
+to run the test:
+`forge test`
 
-https://book.getfoundry.sh/
+to deploy and verify contracts:
+`forge script --chain sepolia script/Crowdfunding.s.sol:DeployCrowdfunding --rpc-url $SEPOLIA_RPC_URL --broadcast --verify -vvvv`
 
-## Usage
+## Requirements
 
-### Build
+**Contract Address**: [Contract is deployed to this address](https://sepolia.etherscan.io/address/0x303D894341130172236F2e521017Db8a545AF78d)
 
-```shell
-$ forge build
-```
+**Security Explanation**:
+ There are 2 security measures in smart contract:
 
-### Test
+ 1. Contract inheriting from OZ Ownable to restrict access to `withdrawAll()` admin function. 
+ 2. User's function `withdrawDonation` follows [CEI pattern](https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html) to guard against reentrancy attacks.
 
-```shell
-$ forge test
-```
+**Working Frontend**:
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Further improvements
